@@ -3,6 +3,7 @@ import {
   getBooksQuery,
   getBooksByIdQuery,
   addBooksQuery,
+  deleteBookQuery,
 } from "../queries/bookqueries.js";
 
 export const getBooksController = (req, res) => {
@@ -26,5 +27,14 @@ export const addBooksController = (req, res) => {
   pool.query(addBooksQuery, [title, author, release_date], (error, results) => {
     if (error) throw error;
     res.status(200).json("Book added successfully!");
+  });
+};
+
+export const deleteBookController = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  pool.query(deleteBookQuery, [id], (error, results) => {
+    if (error) throw error;
+    res.status(200).json("Book deleted successfully!");
   });
 };
